@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "reducer.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +16,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+public slots :
+    void actPwrResult(int useless);
+    void actPwrResult(double useless);
+
 private:
     Ui::MainWindow *ui;
+
+    Reducer reduc;
 };
 #endif // MAINWINDOW_H

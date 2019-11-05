@@ -56,7 +56,7 @@
                 <double>5.000000000000000</double>
                </property>
                <property name="value">
-                <double>30.000000000000000</double>
+                <double>15.000000000000000</double>
                </property>
               </widget>
              </item>
@@ -78,7 +78,7 @@
               </widget>
              </item>
              <item row="2" column="1">
-              <widget class="QDoubleSpinBox" name="sb_loadMass">
+              <widget class="QDoubleSpinBox" name="dsb_loadMass">
                <property name="decimals">
                 <number>1</number>
                </property>
@@ -106,12 +106,16 @@
                 <number>10</number>
                </property>
                <property name="value">
-                <number>500</number>
+                <number>550</number>
                </property>
               </widget>
              </item>
              <item row="3" column="1">
-              <widget class="QDoubleSpinBox" name="dsb_safetyCoef"/>
+              <widget class="QDoubleSpinBox" name="dsb_safetyCoef">
+               <property name="value">
+                <double>2.000000000000000</double>
+               </property>
+              </widget>
              </item>
              <item row="3" column="0">
               <widget class="QLabel" name="lbl_disp_safetyCoef">
@@ -268,7 +272,7 @@
               </widget>
              </item>
              <item row="4" column="2">
-              <widget class="QLabel" name="lbl_lSreducRatio">
+              <widget class="QLabel" name="lbl_lSReducRatio">
                <property name="text">
                 <string>-</string>
                </property>
@@ -329,7 +333,7 @@ réduction</string>
               </widget>
              </item>
              <item row="4" column="3">
-              <widget class="QLabel" name="lbl_wreducRatio">
+              <widget class="QLabel" name="lbl_wReducRatio">
                <property name="text">
                 <string>-</string>
                </property>
@@ -391,7 +395,7 @@ réduction</string>
               </widget>
              </item>
              <item row="4" column="1">
-              <widget class="QLabel" name="lbl_mSreducRatio">
+              <widget class="QLabel" name="lbl_mSReducRatio">
                <property name="text">
                 <string>-</string>
                </property>
@@ -451,43 +455,57 @@ réduction</string>
            </item>
            <item>
             <layout class="QGridLayout" name="grL_miscPwrResult">
-             <item row="1" column="0">
+             <item row="2" column="0">
               <widget class="QLabel" name="lbl_disp_loadWeight">
                <property name="text">
                 <string>Poids de la charge (N) :</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
+             <item row="1" column="0">
               <widget class="QLabel" name="lbl_disp_calcLoadMass">
                <property name="text">
                 <string>Masse considérée (kg)  :</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="lbl_loadWeight">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="lbl_calcLoadMass">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
+             <item row="4" column="0">
               <widget class="QLabel" name="lbl_disp_maxSpoolRad">
                <property name="text">
                 <string>Rayon max du tambour (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
+             <item row="2" column="1">
+              <widget class="QLabel" name="lbl_loadWeight">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lbl_calcLoadMass">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
               <widget class="QLabel" name="lbl_maxSpoolRad">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_totalReduc">
+               <property name="text">
+                <string>Rapport de réduction :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lbl_totalReduc">
                <property name="text">
                 <string>-</string>
                </property>
