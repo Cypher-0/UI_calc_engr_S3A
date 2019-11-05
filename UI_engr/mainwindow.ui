@@ -178,6 +178,13 @@
       </layout>
      </widget>
     </item>
+    <item>
+     <widget class="QGroupBox" name="gb_result">
+      <property name="title">
+       <string>Résultats</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
