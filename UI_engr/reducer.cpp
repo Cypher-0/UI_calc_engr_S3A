@@ -1,6 +1,7 @@
 #include "reducer.h"
 
 #include <QtMath>
+#include <math.h>
 
 #include <QDebug>
 
@@ -186,6 +187,16 @@ double Reducer::get_totalReduc()
     return totalReduc;
 }
 
+/////////////////////////////////////////////////////////////////////////
+///
+///                         Calc
+///
+/////////////////////////////////////////////////////////////////////////
+
+        //////////////////////////////////
+        ///         POWER
+        //////////////////////////////////
+
 double Reducer::calcMaxSpoolRad()
 {
     double lapNumPerStage = spoolWidth/cableDiam;
@@ -200,4 +211,30 @@ double Reducer::calcMaxSpoolRad()
 
     maxSpoolRad = currentDiam/2.0;
     return maxSpoolRad;
+}
+
+        //////////////////////////////////
+        ///         GEARS
+        //////////////////////////////////
+
+void Reducer::calcGears()
+{
+
+}
+
+bool Reducer::isComboOk()
+{
+    QVector<bool> conditions(0);
+    conditions.push_back(Z1 > Zmin && Z3 >= Zmin);
+    conditions.push_back(bestR1+bestR2 > r1+r2);
+    //if(m1 >= cbrt((5.48*2*C1)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*C2)/(Z3*k2*rpe)))
+    conditions.push_back(m1 >= cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe)));
+
+    for(auto &curVal : conditions)
+    {
+        if(!curVal)
+            return false;
+    }
+
+    return true;
 }

@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_power">
        <attribute name="title">
@@ -522,6 +522,163 @@ réduction</string>
        <attribute name="title">
         <string>Engrenages</string>
        </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="hLay_gears_gb">
+          <item>
+           <widget class="QGroupBox" name="gb_gears_input">
+            <property name="title">
+             <string>Paramètres d'entrée</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="3" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_minModule">
+               <property name="minimum">
+                <double>0.500000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_moduleStep">
+               <property name="minimum">
+                <double>0.000000000000000</double>
+               </property>
+               <property name="singleStep">
+                <double>0.500000000000000</double>
+               </property>
+               <property name="value">
+                <double>0.500000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="sb_minZ">
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="value">
+                <number>22</number>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="lbl_disp_rpeMat">
+               <property name="text">
+                <string>Rpe du matériau (MPa) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbl_disp_maxZ">
+               <property name="text">
+                <string>Nombre de dents maximum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="lbl_disp_maxModule">
+               <property name="text">
+                <string>Module maximum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_disp_minModule">
+               <property name="text">
+                <string>Module minimum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="sb_maxZ">
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="value">
+                <number>250</number>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QSpinBox" name="sb_rpeMat">
+               <property name="maximum">
+                <number>5000</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>250</number>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_minZ">
+               <property name="text">
+                <string>Nombre de dents minimum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_maxModule">
+               <property name="minimum">
+                <double>5.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbl_disp_moduleStep">
+               <property name="text">
+                <string>Pas de variation du module :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0" colspan="2">
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="gb_gears_output">
+            <property name="title">
+             <string>Résultats</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pb_startGearsCalc">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>35</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Lancer le calcul des engrenages</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
     </item>

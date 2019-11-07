@@ -2,6 +2,7 @@
 #define REDUCER_H
 
 #include <QObject>
+#include <QVector>
 
 class Reducer : public QObject
 {
@@ -74,6 +75,8 @@ public slots:
     void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
                    const double &IloadHeight, const double &IcableDiam, const double &IspoolWidth, const double &IspoolDiam);
 
+    void actGearsInput(const double &IZmin)
+
 private :
 
     ///////////////////////////////////////////
@@ -82,7 +85,8 @@ private :
     //
     ///////////////////////////////////////////
 
-    //Power
+    ////// POWER
+
         //input
     double loadHeight = 0.0;
     double safetyCoef = 0.0;
@@ -119,12 +123,33 @@ private :
     double loadWeight = 0.0;
     double maxSpoolRad = 0.0;
 
+    ////// GEARS
+
+    QVector<double> klist;
+
+        //input
+    double Zmin=0.0,Zmax=0.0,mMin=0.0,mMax=0.0,mStep=0.0;
+    int rpe=0;
+
+        //calc values
+    double Z1=0.0,Z2=0.0,Z3=0.0,Z4=0.0;
+    int tmpZ1=0,tmpZ2=0,tmpZ3=0,tmpZ4=0;
+    double k1=0.0,k2=0.0;
+    double m1=0.0,m2=0.0;
+    double r1=0.0,r2=0.0,r3=0.0,r4=0.0;
+
+        //calculated values
+    int bestZ1=999990,bestZ2=999990,bestZ3=999990,bestZ4=999990;
+    double bestm1=0.0,bestm2=0.0;
+    double bestk1=0.0,bestk2=0.0;
+    double bestR1=99999.0,bestR2=99999.0,bestR3=99999.0,bestR4=99999.0;
+
     ////// Misc
 
     //input parameters
     double gearsEfficiency = 0.95;
 
-    //ouput parameters
+    //output parameters
     double totalReduc = 0.0;
 
 
@@ -134,7 +159,13 @@ private :
     //
     ///////////////////////////////////////////
 
+    //POWER
     double calcMaxSpoolRad();
+
+    //GEARS
+    void calcGears();
+    bool isComboOk();
+
 };
 
 #endif // REDUCER_H
