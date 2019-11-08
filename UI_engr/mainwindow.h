@@ -20,6 +20,12 @@ public slots :
     void actPwrResult(int useless);
     void actPwrResult(double useless);
 
+    void actGearsParams(int useless);
+    void actGearsParams(double useless);
+
+private slots:
+    void on_pb_startGearsCalc_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QVector>
+#include <math.h>
 
 class Reducer : public QObject
 {
@@ -75,7 +76,11 @@ public slots:
     void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
                    const double &IloadHeight, const double &IcableDiam, const double &IspoolWidth, const double &IspoolDiam);
 
-    void actGearsInput(const double &IZmin)
+    void actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax, const double &ImStep,
+                       const int &Irpe,const double &IgearsAlignTolerance);
+
+    //GEARS
+    void calcGears();
 
 private :
 
@@ -128,13 +133,12 @@ private :
     QVector<double> klist;
 
         //input
-    double Zmin=0.0,Zmax=0.0,mMin=0.0,mMax=0.0,mStep=0.0;
-    int rpe=0;
+    double mMin=0.0,mMax=0.0,mStep=0.0,gearsAlignTolerance=0.0;
+    int Zmin=0.0,Zmax=0.0,rpe=0;
 
         //calc values
     double Z1=0.0,Z2=0.0,Z3=0.0,Z4=0.0;
     int tmpZ1=0,tmpZ2=0,tmpZ3=0,tmpZ4=0;
-    double k1=0.0,k2=0.0;
     double m1=0.0,m2=0.0;
     double r1=0.0,r2=0.0,r3=0.0,r4=0.0;
 
@@ -163,9 +167,17 @@ private :
     double calcMaxSpoolRad();
 
     //GEARS
-    void calcGears();
-    bool isComboOk();
+    bool isComboOk(const double &k1, const double &k2);
 
 };
+
+inline static void adjustValues(double &Z1,double &Z2,double &Z3,double &Z4)
+{
+    Z1 = double(round(Z1));
+    Z2 = double(round(Z2));
+    Z3 = double(round(Z3));
+    Z4 = double(round(Z4));
+}
+
 
 #endif // REDUCER_H

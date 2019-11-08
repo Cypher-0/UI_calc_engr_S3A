@@ -19,6 +19,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->dsb_spoolWidth,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
 
     actPwrResult(0);
+
+    //connect input gears value
+    connect(ui->sb_minZ,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
+    connect(ui->sb_maxZ,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
+    connect(ui->dsb_minModule,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->dsb_maxModule,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->dsb_moduleStep,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->sb_rpeMat,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
+    connect(ui->dsb_gearsAlignTolerance,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+
+    actGearsParams(0);
 }
 
 MainWindow::~MainWindow()
@@ -51,7 +62,7 @@ void MainWindow::actPwrResult(int useless)
     ui->lbl_wReducRatio->setText(QString::number(reduc.get_wReducRatio(),'f',2));
     ui->lbl_wRatedTorque->setText(QString::number(reduc.get_wRatedTorque(),'f',2));
 
-    ui->lbl_totalReduc->setText(QString::number(reduc.get_totalReduc(),'f',2));
+    ui->lbl_totalReduc->setText(QString::number(reduc.get_totalReduc(),'f',5));
     ui->lbl_calcLoadMass->setText(QString::number(reduc.get_calcLoadMass(),'f',2));
     ui->lbl_loadWeight->setText(QString::number(reduc.get_loadWeight(),'f',2));
     ui->lbl_maxSpoolRad->setText(QString::number(reduc.get_maxSpoolRad(),'f',2));
@@ -60,4 +71,30 @@ void MainWindow::actPwrResult(int useless)
 void MainWindow::actPwrResult(double useless)
 {
     actPwrResult(int(useless));
+}
+
+
+void MainWindow::actGearsParams(int useless)
+{
+    useless++;
+
+    reduc.actGearsInput(
+                        ui->sb_minZ->value(),
+                        ui->sb_maxZ->value(),
+                        ui->dsb_minModule->value(),
+                        ui->dsb_maxModule->value(),
+                        ui->dsb_moduleStep->value(),
+                        ui->sb_rpeMat->value(),
+                        ui->dsb_gearsAlignTolerance->value()
+                        );
+}
+
+void MainWindow::actGearsParams(double useless)
+{
+    actGearsParams(int(useless));
+}
+
+void MainWindow::on_pb_startGearsCalc_clicked()
+{
+    reduc.calcGears();
 }

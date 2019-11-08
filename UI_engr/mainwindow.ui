@@ -531,6 +531,23 @@ réduction</string>
              <string>Paramètres d'entrée</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="sb_maxZ">
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="value">
+                <number>250</number>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbl_disp_moduleStep">
+               <property name="text">
+                <string>Pas de variation du module :</string>
+               </property>
+              </widget>
+             </item>
              <item row="3" column="1">
               <widget class="QDoubleSpinBox" name="dsb_minModule">
                <property name="minimum">
@@ -551,23 +568,6 @@ réduction</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="sb_minZ">
-               <property name="maximum">
-                <number>1000</number>
-               </property>
-               <property name="value">
-                <number>22</number>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="lbl_disp_rpeMat">
-               <property name="text">
-                <string>Rpe du matériau (MPa) :</string>
-               </property>
-              </widget>
-             </item>
              <item row="1" column="0">
               <widget class="QLabel" name="lbl_disp_maxZ">
                <property name="text">
@@ -582,10 +582,24 @@ réduction</string>
                </property>
               </widget>
              </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="Line" name="line_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="4" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_maxModule">
+               <property name="minimum">
+                <double>5.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_minZ">
+               <property name="text">
+                <string>Nombre de dents minimum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="lbl_disp_rpeMat">
+               <property name="text">
+                <string>Rpe du matériau (MPa) :</string>
                </property>
               </widget>
              </item>
@@ -596,13 +610,27 @@ réduction</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QSpinBox" name="sb_maxZ">
+             <item row="2" column="0" colspan="2">
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="sb_minZ">
                <property name="maximum">
                 <number>1000</number>
                </property>
                <property name="value">
-                <number>250</number>
+                <number>22</number>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0" colspan="2">
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
@@ -619,31 +647,21 @@ réduction</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_disp_minZ">
-               <property name="text">
-                <string>Nombre de dents minimum :</string>
+             <item row="8" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_gearsAlignTolerance">
+               <property name="singleStep">
+                <double>5.000000000000000</double>
                </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QDoubleSpinBox" name="dsb_maxModule">
-               <property name="minimum">
+               <property name="value">
                 <double>5.000000000000000</double>
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="lbl_disp_moduleStep">
+             <item row="8" column="0">
+              <widget class="QLabel" name="lbl_disp_gearsAlignTolerance">
                <property name="text">
-                <string>Pas de variation du module :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" colspan="2">
-              <widget class="Line" name="line_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+                <string>Tolérance d'alignement
+axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
@@ -655,6 +673,134 @@ réduction</string>
             <property name="title">
              <string>Résultats</string>
             </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="3" column="2">
+              <widget class="QLabel" name="lbl_disp_b12">
+               <property name="text">
+                <string>Largeur 1-2 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QLabel" name="lbl_Z1">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLabel" name="lbl_m2">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbl_disp_m2">
+               <property name="text">
+                <string>module 2 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QLabel" name="lbl_disp_Z1">
+               <property name="text">
+                <string>Z1 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QLabel" name="lbl_disp_Z2">
+               <property name="text">
+                <string>Z2 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="3">
+              <widget class="QLabel" name="lbl_b12">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbl_disp_Z3">
+               <property name="text">
+                <string>Z3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lbl_Z3">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="4">
+              <widget class="Line" name="line_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_disp_m1">
+               <property name="text">
+                <string>module 1 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QLabel" name="lbl_disp_b34">
+               <property name="text">
+                <string>Largeur 3-4 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lbl_Z4">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="lbl_Z2">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="3">
+              <widget class="QLabel" name="lbl_b34">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_Z4">
+               <property name="text">
+                <string>Z4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="lbl_m1">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="4">
+              <widget class="Line" name="line_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>
