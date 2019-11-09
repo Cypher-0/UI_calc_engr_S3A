@@ -71,6 +71,8 @@ public:
     double get_totalReduc();
 
 signals:
+    void update_PB_gearsCalcRange(int min,int max);
+    void update_PB_gearsCalcValue(int value);
 
 public slots:
     void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
@@ -146,7 +148,8 @@ private :
     int bestZ1=999990,bestZ2=999990,bestZ3=999990,bestZ4=999990;
     double bestm1=0.0,bestm2=0.0;
     double bestk1=0.0,bestk2=0.0;
-    double bestR1=99999.0,bestR2=99999.0,bestR3=99999.0,bestR4=99999.0;
+    double bestR1=999.0,bestR2=999.0,bestR3=999.0,bestR4=999.0;
+    double calculatedReducRatio = 0.0;
 
     ////// Misc
 

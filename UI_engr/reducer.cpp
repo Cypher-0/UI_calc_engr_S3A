@@ -237,8 +237,10 @@ void Reducer::actGearsInput(const int &IZmin, const int &IZmax, const double &Im
 
 void Reducer::calcGears()
 {
+    emit update_PB_gearsCalcRange(Zmin,Zmax-1);
     for(int tmpZ4 = Zmin; tmpZ4 < Zmax;tmpZ4 += 1)
         {
+        emit update_PB_gearsCalcValue(tmpZ4);
             for(int tmpZ2 = Zmin; tmpZ2 < Zmax;tmpZ2 += 1)
             {
                 for(int tmpm1 = int(mMin*10); tmpm1 < int(mMax*10);tmpm1 += 5)
@@ -285,7 +287,7 @@ void Reducer::calcGears()
                                     bestR3 = r3;
                                     bestR4 = r4;
 
-                                    qDebug() << bestZ1 << endl<< bestZ2 << endl<< bestZ3 << endl<< bestZ4 << endl << m1 << endl << m2;
+                                    calculatedReducRatio = (Z1*Z3)/(Z2*Z4);
                                 }
                             }
                         }
@@ -293,6 +295,7 @@ void Reducer::calcGears()
                 }
             }
         }
+    qDebug() << bestZ1 << endl<< bestZ2 << endl<< bestZ3 << endl<< bestZ4 << endl << m1 << endl << m2 << endl << calculatedReducRatio <<endl;
 }
 
 bool Reducer::isComboOk(const double &k1, const double &k2)
@@ -304,20 +307,21 @@ bool Reducer::isComboOk(const double &k1, const double &k2)
     conditions.push_back(bestR1+bestR2 > r1+r2);
 
     if(
-            m1 >= cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe)) &&
-            Z1 > Zmin && Z3 >= Zmin &&
-            r1+r2 >= r3+r4-gearsAlignTolerance && r1+r2 <= r3+r4+gearsAlignTolerance &&
-            bestR1+bestR2 > r1+r2
+            m1 >= cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe))
+            && Z1 > Zmin && Z3 >= Zmin
+            && r1+r2 >= r3+r4-gearsAlignTolerance && r1+r2 <= r3+r4+gearsAlignTolerance
+            && bestR1+bestR2 > r1+r2
       )
       {
+        qDebug() << "OK";
             return true;
       }
 
-    for(auto &curVal : conditions)
+    /*for(auto &curVal : conditions)
     {
         if(!curVal)
             return false;
-    }
+    }*/
 
     return true;
 }

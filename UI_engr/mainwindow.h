@@ -23,6 +23,8 @@ public slots :
     void actGearsParams(int useless);
     void actGearsParams(double useless);
 
+    void update_PB_gearsCalcRange(int min,int max);
+
 private slots:
     void on_pb_startGearsCalc_clicked();
 

@@ -674,10 +674,45 @@ axe d'entrée/sortie (mm) :</string>
              <string>Résultats</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_3">
-             <item row="3" column="2">
-              <widget class="QLabel" name="lbl_disp_b12">
+             <item row="2" column="0" colspan="4">
+              <widget class="Line" name="line_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="2">
+              <widget class="QLabel" name="lbl_disp_b34">
                <property name="text">
-                <string>Largeur 1-2 :</string>
+                <string>Largeur 3-4 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_disp_m1">
+               <property name="text">
+                <string>module 1 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0" colspan="2">
+              <widget class="QLabel" name="lbl_disp_calculatedReducRatio">
+               <property name="text">
+                <string>Rapport de réduction obtenu :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0" colspan="4">
+              <widget class="Line" name="line_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbl_disp_m2">
+               <property name="text">
+                <string>module 2 :</string>
                </property>
               </widget>
              </item>
@@ -695,10 +730,10 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="lbl_disp_m2">
+             <item row="3" column="2">
+              <widget class="QLabel" name="lbl_disp_b12">
                <property name="text">
-                <string>module 2 :</string>
+                <string>Largeur 1-2 :</string>
                </property>
               </widget>
              </item>
@@ -706,6 +741,62 @@ axe d'entrée/sortie (mm) :</string>
               <widget class="QLabel" name="lbl_disp_Z1">
                <property name="text">
                 <string>Z1 :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="3">
+              <widget class="QLabel" name="lbl_b34">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="3">
+              <widget class="QLabel" name="lbl_Z2">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="lbl_Z3">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="lbl_m1">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_Z4">
+               <property name="text">
+                <string>Z4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="lbl_disp_Z3">
+               <property name="text">
+                <string>Z3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="2" colspan="2">
+              <widget class="QLabel" name="lbl_calculatedReducRatio">
+               <property name="text">
+                <string>-</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="lbl_Z4">
+               <property name="text">
+                <string>-</string>
                </property>
               </widget>
              </item>
@@ -723,78 +814,8 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="lbl_disp_Z3">
-               <property name="text">
-                <string>Z3</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QLabel" name="lbl_Z3">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="4">
-              <widget class="Line" name="line_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_disp_m1">
-               <property name="text">
-                <string>module 1 :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QLabel" name="lbl_disp_b34">
-               <property name="text">
-                <string>Largeur 3-4 :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QLabel" name="lbl_Z4">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QLabel" name="lbl_Z2">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="3">
-              <widget class="QLabel" name="lbl_b34">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_disp_Z4">
-               <property name="text">
-                <string>Z4</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QLabel" name="lbl_m1">
-               <property name="text">
-                <string>-</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0" colspan="4">
-              <widget class="Line" name="line_6">
+             <item row="6" column="0" colspan="4">
+              <widget class="Line" name="line_7">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
@@ -821,6 +842,13 @@ axe d'entrée/sortie (mm) :</string>
           </property>
           <property name="text">
            <string>Lancer le calcul des engrenages</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="PB_gearsCalcProgression">
+          <property name="value">
+           <number>0</number>
           </property>
          </widget>
         </item>

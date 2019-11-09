@@ -3,6 +3,7 @@
 
 #include "reducer.h"
 #include <QString>
+#include <QProgressBar>
 
 MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow)
 {
@@ -28,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->dsb_moduleStep,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
     connect(ui->sb_rpeMat,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
     connect(ui->dsb_gearsAlignTolerance,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+
+    connect(&reduc,SIGNAL(update_PB_gearsCalcRange(int,int)),this,SLOT(update_PB_gearsCalcRange(int,int)));
+    connect(&reduc,SIGNAL(update_PB_gearsCalcValue(int)),ui->PB_gearsCalcProgression,SLOT(setValue(int)));
 
     actGearsParams(0);
 }
@@ -97,4 +101,9 @@ void MainWindow::actGearsParams(double useless)
 void MainWindow::on_pb_startGearsCalc_clicked()
 {
     reduc.calcGears();
+}
+
+void MainWindow::update_PB_gearsCalcRange(int min,int max)
+{
+    ui->PB_gearsCalcProgression->setRange(min,max);
 }
