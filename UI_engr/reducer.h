@@ -78,9 +78,9 @@ signals:
     void update_PB_gearsCalcRange(int min,int max);
     void update_PB_gearsCalcValue(int value);
 
-    void actGearsResult(int Z1,int Z2,int Z3,int Z4,double m1,double m2,
+    void actGearsResult(int Z1,int Z2,int Z3,int Z4,double m1,double m2, double minM1,double minM2,
                         double b12,double b34,double calculatedReducRatio,
-                        double,double,double,double);
+                        double bestR1,double bestR2,double bestR3,double bestR4);
     void gearsCalcEnded();
 
 
@@ -160,6 +160,7 @@ private :
     //calculated values
     int bestZ1=999990,bestZ2=999990,bestZ3=999990,bestZ4=999990;
     double bestm1=0.0,bestm2=0.0;
+    double minModule1=0.0,minModule2=0.0;
     double bestk1=0.0,bestk2=0.0;
     double bestR1=999.0,bestR2=999.0,bestR3=999.0,bestR4=999.0;
     double calculatedReducRatio = 0.0;

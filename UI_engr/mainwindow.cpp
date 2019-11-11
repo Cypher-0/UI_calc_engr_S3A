@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(&reduc,SIGNAL(update_PB_gearsCalcRange(int,int)),this,SLOT(update_PB_gearsCalcRange(int,int)));
     connect(&reduc,SIGNAL(update_PB_gearsCalcValue(int)),ui->PB_gearsCalcProgression,SLOT(setValue(int)));
 
-    connect(&reduc,SIGNAL(actGearsResult(int,int,int,int,double,double,double,double,double,double,double,double,double)),
-            this,SLOT(actGearsResult(int,int,int,int,double,double,double,double,double,double,double,double,double)));
+    connect(&reduc,SIGNAL(actGearsResult(int,int,int,int,double,double,double,double,double,double,double,double,double,double,double)),
+            this,SLOT(actGearsResult(int,int,int,int,double,double,double,double,double,double,double,double,double,double,double)));
     connect(&reduc,SIGNAL(gearsCalcEnded()),this,SLOT(gearsCalcEnded()));
 
     //connect GEARS VERIFICATION
@@ -149,7 +149,7 @@ void MainWindow::update_PB_gearsCalcRange(int min,int max)
     ui->PB_gearsCalcProgression->setRange(min,max);
 }
 
-void MainWindow::actGearsResult(int Z1, int Z2, int Z3, int Z4, double m1, double m2,
+void MainWindow::actGearsResult(int Z1, int Z2, int Z3, int Z4, double m1, double m2, double minM1, double minM2,
                     double b12, double b34, double calculatedReducRatio, double r1, double r2, double r3, double r4)
 {
     ui->lbl_Z1->setText(QString::number(Z1,'f',2));
@@ -164,6 +164,8 @@ void MainWindow::actGearsResult(int Z1, int Z2, int Z3, int Z4, double m1, doubl
 
     ui->lbl_m1->setText(QString::number(m1,'f',2));
     ui->lbl_m2->setText(QString::number(m2,'f',2));
+    ui->lbl_minModule1->setText(QString::number(minM1,'f',2));
+    ui->lbl_minModule2->setText(QString::number(minM2,'f',2));
 
     ui->lbl_b12->setText(QString::number(b12,'f',2));
     ui->lbl_b34->setText(QString::number(b34,'f',2));

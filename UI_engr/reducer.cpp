@@ -259,7 +259,7 @@ void Reducer::calcGears()
 
 
     emit update_PB_gearsCalcRange(Zmin,Zmax-1);
-    emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+    emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
     for(int tmpZ4 = Zmin; tmpZ4 < Zmax;tmpZ4 += 1)
         {
         emit update_PB_gearsCalcValue(tmpZ4);
@@ -321,7 +321,15 @@ void Reducer::calcGears()
 
                                     calculatedReducRatio = (Z1*Z3)/(Z2*Z4);
 
-                                    emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,bestk1*bestm1*1000,bestk2*bestm2*1000,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
+                                    double tmpMod1_1 = cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe));
+                                    double tmpMod1_2 = cbrt((5.48*2*lSRatedTorque)/(Z2*k1*rpe));
+                                    double tmpMod2_1 = cbrt((5.48*2*lSRatedTorque)/(Z3*k2*rpe));
+                                    double tmpMod2_2 = cbrt((5.48*2*lSRatedTorque)/(Z4*k2*rpe));
+
+                                    minModule1 = (tmpMod1_1 > tmpMod1_2)?tmpMod1_1:tmpMod1_2;
+                                    minModule2 = (tmpMod2_1 > tmpMod2_2)?tmpMod2_1:tmpMod2_2;
+
+                                    emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,minModule1,minModule2,bestk1*bestm1*1000,bestk2*bestm2*1000,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
                                 }
                             }
                         }
@@ -333,7 +341,7 @@ void Reducer::calcGears()
        || (bestZ1*bestZ3)/(bestZ2*bestZ4) > totalReduc
       )
     {
-        emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+        emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
     }
 
     emit gearsCalcEnded();
@@ -420,6 +428,8 @@ void Reducer::saveProjectOutput(QString saveName)
     flux <<"r4="<<QString::number(bestR4)<<";\n";
     flux <<"m1="<<QString::number(bestm1)<<";\n";
     flux <<"m2="<<QString::number(bestm2)<<";\n";
+    flux <<"minM1="<<QString::number(minModule1)<<";\n";
+    flux <<"minM2="<<QString::number(minModule2)<<";\n";
     flux <<"k1="<<QString::number(bestk1)<<";\n";
     flux <<"k2="<<QString::number(bestk2)<<";\n";
     flux <<"b12="<<QString::number(bestk1*bestm1*1000)<<";\n";
@@ -456,6 +466,8 @@ void Reducer::loadProjectOutput(QString saveName)
 
     bestm1 = getStrValueOf(text,"m1").toDouble();
     bestm2 = getStrValueOf(text,"m2").toDouble();
+    minModule1 = getStrValueOf(text,"minM1").toDouble();
+    minModule2 = getStrValueOf(text,"minM2").toDouble();
 
     bestk1 = getStrValueOf(text,"k1").toDouble();
     bestk2 = getStrValueOf(text,"k2").toDouble();
@@ -465,7 +477,7 @@ void Reducer::loadProjectOutput(QString saveName)
     double b12 = getStrValueOf(text,"b12").toDouble();
     double b34 = getStrValueOf(text,"b34").toDouble();
 
-    emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,b12,b34,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
+    emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,minModule1,minModule2,b12,b34,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
     actVerifGearsInput(int(veGears_Z1),int(veGears_Z2),int(veGears_Z3),int(veGears_Z4));
 }
 

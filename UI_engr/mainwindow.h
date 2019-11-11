@@ -24,7 +24,7 @@ public slots :
     void actGearsParams(double useless);
 
     void update_PB_gearsCalcRange(int min,int max);
-    void actGearsResult(int Z1,int Z2,int Z3,int Z4,double m1,double m2,
+    void actGearsResult(int Z1,int Z2,int Z3,int Z4,double m1,double m2,double minM1,double minM2,
                         double b12,double b34,double calculatedReducRatio,
                         double r1,double r2,double r3, double r4);
     void gearsCalcEnded();
