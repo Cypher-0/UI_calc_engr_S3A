@@ -1,6 +1,9 @@
 #ifndef REDUCER_H
 #define REDUCER_H
 
+//définition d'un macro globale pour l'extension de fichier
+#define FILE_TYPE QString(".cgp")
+
 #include <QObject>
 #include <QVector>
 #include <math.h>
@@ -71,18 +74,38 @@ public:
     double get_totalReduc();
 
 signals:
+    ////// GEARS
     void update_PB_gearsCalcRange(int min,int max);
     void update_PB_gearsCalcValue(int value);
 
+    void actGearsResult(int Z1,int Z2,int Z3,int Z4,double m1,double m2,
+                        double b12,double b34,double calculatedReducRatio,
+                        double,double,double,double);
+    void gearsCalcEnded();
+
+
+    ////// VERIF GEARS
+    void actVerifGearsExpectedValues(double alignTolerance,double reducRatio);
+    void actVerifGearsGotValues(double alignTolerance,double reducRatio,bool alignToleranceOK,bool reducRatioOk);
+
 public slots:
+    ////// POWER
     void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
                    const double &IloadHeight, const double &IcableDiam, const double &IspoolWidth, const double &IspoolDiam);
 
-    void actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax, const double &ImStep,
-                       const int &Irpe,const double &IgearsAlignTolerance);
 
-    //GEARS
+
+    ////// GEARS
     void calcGears();
+    void actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax, const double &ImStep,
+                                        const int &Irpe, const double &IgearsAlignTolerance, const double &IaxisDiam, bool IconsiderAlignTolerance);
+
+    ////// VERIF GEARS
+    void actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,const int &IZ4);
+
+    ////// GLOBAL
+    void saveProjectOutput(QString saveName);
+    void loadProjectOutput(QString saveName);
 
 private :
 
@@ -134,9 +157,20 @@ private :
 
     QVector<double> klist;
 
+    //calculated values
+    int bestZ1=999990,bestZ2=999990,bestZ3=999990,bestZ4=999990;
+    double bestm1=0.0,bestm2=0.0;
+    double bestk1=0.0,bestk2=0.0;
+    double bestR1=999.0,bestR2=999.0,bestR3=999.0,bestR4=999.0;
+    double calculatedReducRatio = 0.0;
+
         //input
     double mMin=0.0,mMax=0.0,mStep=0.0,gearsAlignTolerance=0.0;
     int Zmin=0.0,Zmax=0.0,rpe=0;
+    double alpha = 20.0;//angle de pression (°)
+    double axisDiam = 0.0;
+    double wedgeSizeSafety = 5.0;
+    bool considerAlignTolerance = false;
 
         //calc values
     double Z1=0.0,Z2=0.0,Z3=0.0,Z4=0.0;
@@ -144,12 +178,8 @@ private :
     double m1=0.0,m2=0.0;
     double r1=0.0,r2=0.0,r3=0.0,r4=0.0;
 
-        //calculated values
-    int bestZ1=999990,bestZ2=999990,bestZ3=999990,bestZ4=999990;
-    double bestm1=0.0,bestm2=0.0;
-    double bestk1=0.0,bestk2=0.0;
-    double bestR1=999.0,bestR2=999.0,bestR3=999.0,bestR4=999.0;
-    double calculatedReducRatio = 0.0;
+    ////// VERIF GEARS
+    double veGears_Z1=0.0,veGears_Z2=0.0,veGears_Z3=0.0,veGears_Z4=0.0;
 
     ////// Misc
 
@@ -170,7 +200,6 @@ private :
     double calcMaxSpoolRad();
 
     //GEARS
-    bool isComboOk(const double &k1, const double &k2);
 
 };
 
@@ -182,5 +211,9 @@ inline static void adjustValues(double &Z1,double &Z2,double &Z3,double &Z4)
     Z4 = double(round(Z4));
 }
 
+double getWedgeHeight(const double &axisDiam);//obtenir la taille de la clavette en fonction du diamètre de l'arbre
+
+//file
+QString getStrValueOf(const QString &input,const QString &param);
 
 #endif // REDUCER_H
