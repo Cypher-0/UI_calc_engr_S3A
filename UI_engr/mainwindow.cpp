@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
+#include <QKeySequence>
 
 #include <QDebug>
 
@@ -40,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->dsb_gearsAlignTolerance,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
     connect(ui->dsb_axisDiam,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
     connect(ui->cb_gearsAlignTolerance,SIGNAL(stateChanged(int)),this,SLOT(actGearsParams(int)));
+    ui->pb_startGearsCalc->setShortcut(Qt::Key_Return);
 
     connect(&reduc,SIGNAL(update_PB_gearsCalcRange(int,int)),this,SLOT(update_PB_gearsCalcRange(int,int)));
     connect(&reduc,SIGNAL(update_PB_gearsCalcValue(int)),ui->PB_gearsCalcProgression,SLOT(setValue(int)));
