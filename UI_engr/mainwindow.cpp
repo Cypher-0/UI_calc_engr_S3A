@@ -39,7 +39,9 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->dsb_moduleStep,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
     connect(ui->sb_rpeMat,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
     connect(ui->dsb_gearsAlignTolerance,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
-    connect(ui->dsb_axisDiam,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->dsb_motorAxisDiam,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->dsb_lsDiam,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
+    connect(ui->dsb_wAxisDiam,SIGNAL(valueChanged(double)),this,SLOT(actGearsParams(double)));
     connect(ui->cb_gearsAlignTolerance,SIGNAL(stateChanged(int)),this,SLOT(actGearsParams(int)));
     ui->pb_startGearsCalc->setShortcut(Qt::Key_Return);
 
@@ -120,7 +122,9 @@ void MainWindow::actGearsParams(int useless)
                         ui->dsb_moduleStep->value(),
                         ui->sb_rpeMat->value(),
                         ui->dsb_gearsAlignTolerance->value(),
-                        ui->dsb_axisDiam->value(),
+                        ui->dsb_motorAxisDiam->value(),
+                        ui->dsb_lsDiam->value(),
+                        ui->dsb_wAxisDiam->value(),
                         ui->cb_gearsAlignTolerance->isChecked()
                         );
 }
@@ -141,7 +145,9 @@ void MainWindow::on_pb_startGearsCalc_clicked()
     ui->sb_rpeMat->setDisabled(true);
     ui->cb_gearsAlignTolerance->setDisabled(true);
     ui->dsb_gearsAlignTolerance->setDisabled(true);
-    ui->dsb_axisDiam->setDisabled(true);
+    ui->dsb_motorAxisDiam->setDisabled(true);
+    ui->dsb_lsDiam->setDisabled(true);
+    ui->dsb_wAxisDiam->setDisabled(true);
 
     reduc.calcGears();
 }
@@ -186,7 +192,9 @@ void MainWindow::gearsCalcEnded()
     ui->sb_rpeMat->setEnabled(true);
     ui->cb_gearsAlignTolerance->setEnabled(true);
     ui->dsb_gearsAlignTolerance->setEnabled(true);
-    ui->dsb_axisDiam->setEnabled(true);
+    ui->dsb_motorAxisDiam->setEnabled(true);
+    ui->dsb_lsDiam->setEnabled(true);
+    ui->dsb_wAxisDiam->setEnabled(true);
 }
 
 void MainWindow::actVerifGearsExpectedValues(double alignTolerance,double reducRatio)
@@ -277,7 +285,9 @@ void MainWindow::saveProjectInput(QString saveName)
     flux <<"rpeMat="<<QString::number(ui->sb_rpeMat->value())<<";\n";
     flux <<"considerGearsAlignTolerance="<<ui->cb_gearsAlignTolerance->isChecked()<<";\n";
     flux <<"gearsAlignTolerance="<<QString::number(ui->dsb_gearsAlignTolerance->value())<<";\n";
-    flux <<"axisDiam="<<QString::number(ui->dsb_axisDiam->value())<<";\n";
+    flux <<"motorAxisDiam="<<QString::number(ui->dsb_motorAxisDiam->value())<<";\n";
+    flux <<"lsDiam="<<QString::number(ui->dsb_lsDiam->value())<<";\n";
+    flux <<"wAxisDiam="<<QString::number(ui->dsb_wAxisDiam->value())<<";\n";
 
     flux <<"veGears_Z1="<<QString::number(ui->sb_veGears_Z1->value())<<";\n";
     flux <<"veGears_Z2="<<QString::number(ui->sb_veGears_Z2->value())<<";\n";
@@ -323,7 +333,9 @@ void MainWindow::loadProjectInput(QString saveName)
     ui->sb_rpeMat->setValue(getStrValueOf(text,"rpeMat").toInt());
     ui->cb_gearsAlignTolerance->setChecked(bool(getStrValueOf(text,"considerGearsAlignTolerance").toInt()));
     ui->dsb_gearsAlignTolerance->setValue(getStrValueOf(text,"gearsAlignTolerance").toDouble());
-    ui->dsb_axisDiam->setValue(getStrValueOf(text,"axisDiam").toDouble());
+    ui->dsb_motorAxisDiam->setValue(getStrValueOf(text,"motorAxisDiam").toDouble());
+    ui->dsb_lsDiam->setValue(getStrValueOf(text,"lsDiam").toDouble());
+    ui->dsb_wAxisDiam->setValue(getStrValueOf(text,"wAxisDiam").toDouble());
 
     ui->sb_veGears_Z1->setValue(getStrValueOf(text,"veGears_Z1").toInt());
     ui->sb_veGears_Z2->setValue(getStrValueOf(text,"veGears_Z2").toInt());

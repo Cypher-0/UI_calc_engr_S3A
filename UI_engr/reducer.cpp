@@ -226,7 +226,10 @@ void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const 
         ///         GEARS
         //////////////////////////////////
 
-void Reducer::actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax, const double &ImStep, const int &Irpe, const double &IgearsAlignTolerance, const double &IaxisDiam, bool IconsiderAlignTolerance)
+void Reducer::actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax,
+                            const double &ImStep, const int &Irpe, const double &IgearsAlignTolerance,
+                            const double &ImotorAxisDiam, const double &IlsDiam, const double &IwAxisDiam,
+                            bool IconsiderAlignTolerance)
 {
     Zmin = IZmin;
     Zmax = IZmax;
@@ -235,7 +238,9 @@ void Reducer::actGearsInput(const int &IZmin, const int &IZmax, const double &Im
     mStep = ImStep;
     rpe = Irpe;
     gearsAlignTolerance = IgearsAlignTolerance;
-    axisDiam = IaxisDiam;
+    motorAxisDiam = ImotorAxisDiam;
+    lsDiam = IlsDiam;
+    wAxisDiam = IwAxisDiam;
     considerAlignTolerance = IconsiderAlignTolerance;
 
     emit actVerifGearsExpectedValues(gearsAlignTolerance,totalReduc);
@@ -299,8 +304,8 @@ void Reducer::calcGears()
                                     && bestR1+bestR2+bestR3+bestR4 >= r1+r2+r3+r4
                                     && r1+r2 >= r3+r4-(gearsAlignTolerance*int(considerAlignTolerance)) && r1+r2 <= r3+r4+(gearsAlignTolerance*int(considerAlignTolerance))
                                     && m1 >= cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe))
-                                    && r1*2.0*cos(alpha)-(axisDiam/2.0)-getWedgeHeight(axisDiam) >= 5.0 && r2*2.0*cos(alpha)-(axisDiam/2.0)-getWedgeHeight(axisDiam) >= 5.0
-                                        && r3*2.0*cos(alpha)-(axisDiam/2.0)-getWedgeHeight(axisDiam) >= 5.0 && r4*2.0*cos(alpha)-(axisDiam/2.0)-getWedgeHeight(axisDiam) >= 5.0
+                                    && r1*2.0*cos(alpha)-(motorAxisDiam/2.0)-getWedgeHeight(motorAxisDiam) >= wedgeSizeSafety && r2*2.0*cos(alpha)-(lsDiam/2.0)-getWedgeHeight(lsDiam) >= wedgeSizeSafety
+                                        && r3*2.0*cos(alpha)-(lsDiam/2.0)-getWedgeHeight(lsDiam) >= wedgeSizeSafety && r4*2.0*cos(alpha)-(wAxisDiam/2.0)-getWedgeHeight(wAxisDiam) >= wedgeSizeSafety
                                 )
                                 {
                                     bestZ1 = int(Z1);
@@ -312,6 +317,7 @@ void Reducer::calcGears()
                                     bestm2 = m2;
 
                                     bestk1 = k1;
+                                    //qDebug() << "k1 : " << k1 << "  k2 :" << k2;
                                     bestk2 = k2;
 
                                     bestR1 = r1;
@@ -394,7 +400,7 @@ void Reducer::actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,co
     double r3 = bestm2*IZ3/2.0;
     double r4 = bestm2*IZ4/2.0;
 
-    emit actVerifGearsGotValues(r3+r4-r1-r2,reducRatio,r3+r4-r1-r2 <= gearsAlignTolerance,std::abs(reducRatio) <= totalReduc);
+    emit actVerifGearsGotValues(r3+r4-r1-r2,reducRatio,std::abs(r3+r4-r1-r2) <= gearsAlignTolerance,reducRatio <= totalReduc);
 }
 
 

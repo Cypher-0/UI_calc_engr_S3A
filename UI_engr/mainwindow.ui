@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>860</width>
-    <height>539</height>
+    <height>564</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_power">
        <attribute name="title">
@@ -534,17 +534,70 @@ réduction</string>
              <string>Paramètres d'entrée</string>
             </property>
             <layout class="QGridLayout" name="gridLayout_2">
-             <item row="2" column="0" colspan="2">
-              <widget class="Line" name="line_3">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="0" column="0">
+              <widget class="QLabel" name="lbl_disp_minZ">
+               <property name="text">
+                <string>Nombre de dents minimum :</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="0">
-              <widget class="QLabel" name="lbl_disp_axisDiam">
+             <item row="8" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_gearsAlignTolerance">
+               <property name="singleStep">
+                <double>0.500000000000000</double>
+               </property>
+               <property name="value">
+                <double>5.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="lbl_disp_moduleStep">
                <property name="text">
-                <string>Diamètre des axes :</string>
+                <string>Pas de variation du module :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_motorAxisDiam">
+               <property name="maximum">
+                <double>65.000000000000000</double>
+               </property>
+               <property name="value">
+                <double>14.000000000000000</double>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="sb_minZ">
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>17</number>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QSpinBox" name="sb_rpeMat">
+               <property name="maximum">
+                <number>5000</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>250</number>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0" colspan="2">
+              <widget class="Line" name="line_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
               </widget>
              </item>
@@ -566,10 +619,44 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="0" colspan="2">
-              <widget class="Line" name="line_4">
+             <item row="10" column="0">
+              <widget class="QLabel" name="lbl_disp_motorAxisDiam">
+               <property name="text">
+                <string>Diamètre de l'axe moteur (mm) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0" colspan="2">
+              <widget class="Line" name="line_15">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QSpinBox" name="sb_maxZ">
+               <property name="maximum">
+                <number>1000</number>
+               </property>
+               <property name="singleStep">
+                <number>10</number>
+               </property>
+               <property name="value">
+                <number>250</number>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="lbl_disp_maxModule">
+               <property name="text">
+                <string>Module maximum :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_minModule">
+               <property name="minimum">
+                <double>0.500000000000000</double>
                </property>
               </widget>
              </item>
@@ -586,60 +673,6 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="1">
-              <widget class="QDoubleSpinBox" name="dsb_axisDiam">
-               <property name="maximum">
-                <double>65.000000000000000</double>
-               </property>
-               <property name="value">
-                <double>17.000000000000000</double>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="lbl_disp_minModule">
-               <property name="text">
-                <string>Module minimum :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="1">
-              <widget class="QDoubleSpinBox" name="dsb_minModule">
-               <property name="minimum">
-                <double>0.500000000000000</double>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="lbl_disp_minZ">
-               <property name="text">
-                <string>Nombre de dents minimum :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="1">
-              <widget class="QDoubleSpinBox" name="dsb_gearsAlignTolerance">
-               <property name="singleStep">
-                <double>0.500000000000000</double>
-               </property>
-               <property name="value">
-                <double>5.000000000000000</double>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="1">
-              <widget class="QSpinBox" name="sb_rpeMat">
-               <property name="maximum">
-                <number>5000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
-               </property>
-               <property name="value">
-                <number>250</number>
-               </property>
-              </widget>
-             </item>
              <item row="5" column="1">
               <widget class="QDoubleSpinBox" name="dsb_moduleStep">
                <property name="minimum">
@@ -653,6 +686,13 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="lbl_disp_minModule">
+               <property name="text">
+                <string>Module minimum :</string>
+               </property>
+              </widget>
+             </item>
              <item row="1" column="0">
               <widget class="QLabel" name="lbl_disp_maxZ">
                <property name="text">
@@ -660,43 +700,44 @@ axe d'entrée/sortie (mm) :</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="sb_minZ">
-               <property name="maximum">
-                <number>1000</number>
+             <item row="11" column="0">
+              <widget class="QLabel" name="lbl_disp_lsDiam">
+               <property name="text">
+                <string>Diamètre de l'arbre inférieur (mm) :</string>
                </property>
-               <property name="singleStep">
-                <number>10</number>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="Line" name="line_3">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="12" column="0">
+              <widget class="QLabel" name="lbl_disp_wAxisDiam">
+               <property name="text">
+                <string>Diamètre de l'axe du treuil (mm) :</string>
+               </property>
+              </widget>
+             </item>
+             <item row="11" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_lsDiam">
+               <property name="maximum">
+                <double>65.000000000000000</double>
                </property>
                <property name="value">
-                <number>17</number>
+                <double>25.000000000000000</double>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="lbl_disp_maxModule">
-               <property name="text">
-                <string>Module maximum :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="lbl_disp_moduleStep">
-               <property name="text">
-                <string>Pas de variation du module :</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QSpinBox" name="sb_maxZ">
+             <item row="12" column="1">
+              <widget class="QDoubleSpinBox" name="dsb_wAxisDiam">
                <property name="maximum">
-                <number>1000</number>
-               </property>
-               <property name="singleStep">
-                <number>10</number>
+                <double>65.000000000000000</double>
                </property>
                <property name="value">
-                <number>250</number>
+                <double>35.000000000000000</double>
                </property>
               </widget>
              </item>

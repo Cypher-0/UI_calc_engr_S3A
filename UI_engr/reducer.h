@@ -98,7 +98,8 @@ public slots:
     ////// GEARS
     void calcGears();
     void actGearsInput(const int &IZmin, const int &IZmax, const double &ImMin, const double &ImMax, const double &ImStep,
-                                        const int &Irpe, const double &IgearsAlignTolerance, const double &IaxisDiam, bool IconsiderAlignTolerance);
+                       const int &Irpe, const double &IgearsAlignTolerance, const double &ImotorAxisDiam,
+                       const double &IlsDiam,const double &IwAxisDiam,bool IconsiderAlignTolerance);
 
     ////// VERIF GEARS
     void actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,const int &IZ4);
@@ -169,7 +170,7 @@ private :
     double mMin=0.0,mMax=0.0,mStep=0.0,gearsAlignTolerance=0.0;
     int Zmin=0.0,Zmax=0.0,rpe=0;
     double alpha = 20.0;//angle de pression (°)
-    double axisDiam = 0.0;
+    double motorAxisDiam = 0.0,lsDiam = 0.0,wAxisDiam = 0.0;
     double wedgeSizeSafety = 5.0;
     bool considerAlignTolerance = false;
 
