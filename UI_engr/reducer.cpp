@@ -173,13 +173,17 @@ double Reducer::calcMaxSpoolRad()
     double currentDiam = spoolDiam+cableDiam;
     double currentCableWounded = currentDiam*M_PI*lapNumPerStage;
 
+    qDebug() << "START" << endl << currentCableWounded;
+
     while(currentCableWounded < loadHeight*1000.0)
     {
-        currentDiam += cableDiam;
+        currentDiam += cableDiam*2;
         currentCableWounded += currentDiam*M_PI*lapNumPerStage;
+        qDebug() << currentCableWounded;
     }
 
     maxSpoolRad = currentDiam/2.0;
+    qDebug() << maxSpoolRad;
     return maxSpoolRad;
 }
 

@@ -102,6 +102,8 @@ void MainWindow::actPwrResult(int useless)
     ui->lbl_calcLoadMass->setText(QString::number(reduc.get_calcLoadMass(),'f',2));
     ui->lbl_loadWeight->setText(QString::number(reduc.get_loadWeight(),'f',2));
     ui->lbl_maxSpoolRad->setText(QString::number(reduc.get_maxSpoolRad(),'f',2));
+
+    reduc.actVerifGearsInput(ui->sb_veGears_Z1->value(),ui->sb_veGears_Z2->value(),ui->sb_veGears_Z3->value(),ui->sb_veGears_Z4->value());
 }
 
 void MainWindow::actPwrResult(double useless)
@@ -150,6 +152,8 @@ void MainWindow::on_pb_startGearsCalc_clicked()
     ui->dsb_wAxisDiam->setDisabled(true);
 
     reduc.calcGears();
+
+    reduc.actVerifGearsInput(ui->sb_veGears_Z1->value(),ui->sb_veGears_Z2->value(),ui->sb_veGears_Z3->value(),ui->sb_veGears_Z4->value());
 }
 
 void MainWindow::update_PB_gearsCalcRange(int min,int max)
