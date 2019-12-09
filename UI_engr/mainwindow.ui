@@ -434,7 +434,8 @@ réduction</string>
              <item row="5" column="0">
               <widget class="QLabel" name="lbl_disp_ratedTorque">
                <property name="text">
-                <string>Couple nominal</string>
+                <string>Couple nominal
+N.m</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -1295,7 +1296,7 @@ des axes (mm) :</string>
      <x>0</x>
      <y>0</y>
      <width>860</width>
-     <height>20</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFichiers">

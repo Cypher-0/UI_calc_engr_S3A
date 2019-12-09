@@ -183,7 +183,7 @@ double Reducer::calcMaxSpoolRad()
     }
 
     maxSpoolRad = currentDiam/2.0;
-    qDebug() << maxSpoolRad;
+    qDebug() << "Diam max tambour : " << maxSpoolRad*2.0;
     return maxSpoolRad;
 }
 
@@ -218,7 +218,7 @@ void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const 
     lSReducRatio = qSqrt(totalReduc);
     lSInputFreq = mSOutputFreq;
     lSOutputFreq = lSReducRatio*lSInputFreq;
-    lSRatedTorque = mSPwr/lSOutputFreq;
+    lSRatedTorque = lSPwr/lSOutputFreq;
 
     wInputFreq = lSOutputFreq;
     wReducRatio = wOutputFreq/wInputFreq;
@@ -269,20 +269,26 @@ void Reducer::calcGears()
 
     emit update_PB_gearsCalcRange(Zmin,Zmax-1);
     emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
+
+    quint64 nbreIter = 0;
+
+    int tmpMaxMod = int(mMax*10);
+
     for(int tmpZ4 = Zmin; tmpZ4 < Zmax;tmpZ4 += 1)
         {
         emit update_PB_gearsCalcValue(tmpZ4);
         QCoreApplication::processEvents();
             for(int tmpZ2 = Zmin; tmpZ2 < Zmax;tmpZ2 += 1)
             {
-                for(int tmpm1 = int(mMin*10); tmpm1 <= int(mMax*10);tmpm1 += 5)
+                for(int tmpm1 = int(mMin*10); tmpm1 <= tmpMaxMod;tmpm1 += 5)
                 {
-                    for(int tmpm2 = int(mMin*10); tmpm2 <= int(mMax*10);tmpm2 += 5)
+                    for(int tmpm2 = int(mMin*10); tmpm2 <= tmpMaxMod;tmpm2 += 5)
                     {
                         for(auto &k1 : klist)
                         {
                             for(auto &k2 : klist)
                             {
+                                nbreIter++;
 
                                 Z2 = double(tmpZ2);
                                 Z4 = double(tmpZ4);
@@ -353,6 +359,8 @@ void Reducer::calcGears()
     {
         emit actGearsResult(0,0,0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0);
     }
+
+    qDebug() << nbreIter;
 
     emit gearsCalcEnded();
 }

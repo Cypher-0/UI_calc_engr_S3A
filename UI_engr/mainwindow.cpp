@@ -65,7 +65,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     //load default config file
     QFile defaultFile("default"+FILE_TYPE);
     if(defaultFile.exists())
+    {
+        qDebug() << "Chargement du fichier par défaut ...";
         loadAllProject("default"+FILE_TYPE);
+    }
 }
 
 MainWindow::~MainWindow()
