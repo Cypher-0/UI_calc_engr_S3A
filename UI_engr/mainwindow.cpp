@@ -60,6 +60,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->sb_veGears_Z3,SIGNAL(valueChanged(int)),this,SLOT(updateVerifGearsInput(int)));
     connect(ui->sb_veGears_Z4,SIGNAL(valueChanged(int)),this,SLOT(updateVerifGearsInput(int)));
 
+    //connect BEARINGS
+    connect(ui->dsb_bear_B1B2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_B2Z4,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_B3B4,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_B3Z3,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_B4Z2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_spoolB1,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(&reduc,SIGNAL(actBearingsOutput()),this,SLOT(actBearingsOutput()));
+
     actGearsParams(0);
 
     //load default config file
@@ -203,6 +212,21 @@ void MainWindow::gearsCalcEnded()
     ui->dsb_lsDiam->setEnabled(true);
     ui->dsb_wAxisDiam->setEnabled(true);
 }
+
+// bearings
+
+void MainWindow::actBearingsInput(double useless)
+{
+    useless++;
+    reduc.actBearingsInput(ui->dsb_bear_B2Z4->value(),ui->dsb_bear_B3B4->value(),ui->dsb_bear_B3Z3->value(),
+                           ui->dsb_bear_spoolB1->value(),ui->dsb_bear_B1B2->value(),ui->dsb_bear_B2Z4->value());
+}
+void MainWindow::actBearingsOutput()
+{
+    qDebug() << "Actualisation des résultats sur les roulements";
+}
+
+
 
 void MainWindow::actVerifGearsExpectedValues(double alignTolerance,double reducRatio)
 {

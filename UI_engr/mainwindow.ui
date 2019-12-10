@@ -22,7 +22,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab_power">
        <attribute name="title">
@@ -1282,6 +1282,146 @@ des axes (mm) :</string>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
           </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_bearing">
+       <attribute name="title">
+        <string>Roulements à bille</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_7">
+        <item row="0" column="1" colspan="2">
+         <widget class="QLabel" name="lbl_disp_bear_unit">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>120</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Toutes les valeurs suivantes sont exprimées en mm&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Les noms Ri désignent les roulements tandis que les noms Zi désignent les roues dentées&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#cc0000;&quot;&gt;Les calculs sont exécutés avec les paramètres de roues dentées déterminés dans les deux onglets précédents&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#cc0000;&quot;&gt;(Nombre de dents et modules)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QGroupBox" name="gb_bear_ls">
+          <property name="title">
+           <string>Arbre intermédiaire</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="2" column="1">
+            <widget class="QLabel" name="lbl_disp_bear_B4Z2">
+             <property name="text">
+              <string>Distance entre R4 et Z2 :
+epsylon</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QDoubleSpinBox" name="dsb_bear_B4Z2"/>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="lbl_disp_bear_B3B4">
+             <property name="text">
+              <string>Ecartement des roulements R3 et R4 :
+mu</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QDoubleSpinBox" name="dsb_bear_B3B4"/>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLabel" name="lbl_disp_bear_B3Z3">
+             <property name="text">
+              <string>Distance entre R3 et Z3 :
+lambda</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QDoubleSpinBox" name="dsb_bear_B3Z3"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QGroupBox" name="gb_bear_ws">
+          <property name="title">
+           <string>Arbre de sortie</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_9">
+           <item row="2" column="1">
+            <widget class="QDoubleSpinBox" name="dsb_bear_spoolB1"/>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="dsb_bear_B1B2"/>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_disp_bear_B1B2">
+             <property name="text">
+              <string>Ecartement des roulements R1 et R2 :
+theta</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_disp_bear_spoolB1">
+             <property name="text">
+              <string>Distance entre le tambour et R1 :
+nabla</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_disp_bear_B2Z4">
+             <property name="text">
+              <string>Distance entre R2 et Z4 :
+alpha</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="dsb_bear_B2Z4"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Roulements</string>
+          </property>
+          <widget class="QLabel" name="label">
+           <property name="geometry">
+            <rect>
+             <x>50</x>
+             <y>40</y>
+             <width>67</width>
+             <height>17</height>
+            </rect>
+           </property>
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>

@@ -88,6 +88,9 @@ signals:
     void actVerifGearsExpectedValues(double alignTolerance,double reducRatio);
     void actVerifGearsGotValues(double alignTolerance,double reducRatio,bool alignToleranceOK,bool reducRatioOk);
 
+    ////// BEARINGS
+    void actBearingsOutput();
+
 public slots:
     ////// POWER
     void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
@@ -103,6 +106,11 @@ public slots:
 
     ////// VERIF GEARS
     void actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,const int &IZ4);
+
+    ////// BEARINGS
+    void actBearingsInput(const double &IB4_Z2,const double &IB4_B3,const double &IB3_Z3,
+                          const double &Ispool_B1,const double &IB1_B2,const double &IB2_Z4,
+                          const double &IdynLoadB1,const double &IdynLoadB2,const double &IdynLoadB3,const double &IdynLoadB4);
 
     ////// GLOBAL
     void saveProjectOutput(QString saveName);
@@ -178,6 +186,7 @@ private :
     double Z1=0.0,Z2=0.0,Z3=0.0,Z4=0.0;
     int tmpZ1=0,tmpZ2=0,tmpZ3=0,tmpZ4=0;
     double m1=0.0,m2=0.0;
+    //real gears radius
     double r1=0.0,r2=0.0,r3=0.0,r4=0.0;
 
     ////// VERIF GEARS
@@ -192,6 +201,20 @@ private :
     double totalReduc = 0.0;
 
 
+    ////// bearings
+
+    //input parameters
+    //B for bearings
+        //ls
+    double B4_Z2=0.0,B4_B3=0.0,B3_Z3=0.0;
+
+        //winch shaft
+    double spool_B1=0.0,B1_B2=0.0,B2_Z4=0.0;
+
+    double dynLoadB1=0.0,dynLoadB2=0.0,dynLoadB3=0.0,dynLoadB4=0.0;
+
+
+    //flux <<"="<<QString::number()<<";\n";
     ///////////////////////////////////////////
     //
     //          Fonctions

@@ -415,6 +415,30 @@ void Reducer::actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,co
     emit actVerifGearsGotValues(r3+r4-r1-r2,reducRatio,std::abs(r3+r4-r1-r2) <= gearsAlignTolerance,reducRatio <= totalReduc);
 }
 
+        //////////////////////////////////
+        ///         BEARINGS
+        //////////////////////////////////
+
+void Reducer::actBearingsInput(const double &IB4_Z2,const double &IB4_B3,const double &IB3_Z3,
+                      const double &Ispool_B1,const double &IB1_B2,const double &IB2_Z4,
+                      const double &IdynLoadB1,const double &IdynLoadB2,const double &IdynLoadB3,const double &IdynLoadB4)
+{
+    B4_Z2 = IB4_Z2;
+    B4_B3 = IB4_B3;
+    B3_Z3 = IB3_Z3;
+
+    spool_B1 = Ispool_B1;
+    B1_B2 = IB1_B2;
+    B2_Z4 = IB2_Z4;
+
+    dynLoadB1 = IdynLoadB1;
+    dynLoadB2 = IdynLoadB2;
+    dynLoadB3 = IdynLoadB3;
+    dynLoadB4 = IdynLoadB4;
+
+    emit actBearingsOutput();
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -453,6 +477,13 @@ void Reducer::saveProjectOutput(QString saveName)
     flux <<"b12="<<QString::number(bestk1*bestm1*1000)<<";\n";
     flux <<"b34="<<QString::number(bestk2*bestm2*1000)<<";\n";
     flux <<"calculatedReducRatio="<<QString::number(calculatedReducRatio)<<";\n";
+    //bearings
+    flux <<"B4_Z2="<<QString::number(B4_Z2)<<";\n";
+    flux <<"B4_B3="<<QString::number(B4_B3)<<";\n";
+    flux <<"B3_Z3="<<QString::number(B3_Z3)<<";\n";
+    flux <<"spool_B1="<<QString::number(spool_B1)<<";\n";
+    flux <<"B1_B2="<<QString::number(B1_B2)<<";\n";
+    flux <<"B2_Z4="<<QString::number(B2_Z4)<<";\n";
     //flux <<"="<<QString::number()<<";\n";
 
     file.close();
@@ -491,6 +522,15 @@ void Reducer::loadProjectOutput(QString saveName)
     bestk2 = getStrValueOf(text,"k2").toDouble();
 
     calculatedReducRatio = getStrValueOf(text,"calculatedReducRatio").toDouble();
+
+    //bearings
+    B4_Z2 = getStrValueOf(text,"B4_Z2").toDouble();
+    B4_B3 = getStrValueOf(text,"B4_B3").toDouble();
+    B3_Z3 = getStrValueOf(text,"B3_Z3").toDouble();
+
+    spool_B1 = getStrValueOf(text,"spool_B1").toDouble();
+    B1_B2 = getStrValueOf(text,"B1_B2").toDouble();
+    B2_Z4 = getStrValueOf(text,"B2_Z4").toDouble();
 
     double b12 = getStrValueOf(text,"b12").toDouble();
     double b34 = getStrValueOf(text,"b34").toDouble();

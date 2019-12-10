@@ -33,6 +33,10 @@ public slots :
     void actVerifGearsGotValues(double alignTolerance,double reducRatio,bool alignToleranceOK,bool reducRatioOk);
     void updateVerifGearsInput(int useless);
 
+    //Bearings
+    void actBearingsInput(double useless);
+    void actBearingsOutput();
+
 
     //make saves
     void saveProjectInput(QString saveName);
