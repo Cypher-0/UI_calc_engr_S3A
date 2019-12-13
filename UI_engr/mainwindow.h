@@ -17,8 +17,9 @@ public:
     ~MainWindow();
 
 public slots :
-    void actPwrResult(int useless);
-    void actPwrResult(double useless);
+    void actPwrInput(int useless);
+    void actPwrInput(double useless);
+    void actPowerResult();
 
     void actGearsParams(int useless);
     void actGearsParams(double useless);

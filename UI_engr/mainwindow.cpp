@@ -20,16 +20,17 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     ui->setupUi(this);
 
     //connect input powers value
-    connect(ui->sb_motorPwr,SIGNAL(valueChanged(int)),this,SLOT(actPwrResult(int)));
-    connect(ui->sb_motorSpeed,SIGNAL(valueChanged(int)),this,SLOT(actPwrResult(int)));
-    connect(ui->dsb_loadMass,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
-    connect(ui->dsb_cableDiam,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
-    connect(ui->dsb_spoolDiam,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
-    connect(ui->dsb_loadHeight,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
-    connect(ui->dsb_safetyCoef,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
-    connect(ui->dsb_spoolWidth,SIGNAL(valueChanged(double)),this,SLOT(actPwrResult(double)));
+    connect(ui->sb_motorPwr,SIGNAL(valueChanged(int)),this,SLOT(actPwrInput(int)));
+    connect(ui->sb_motorSpeed,SIGNAL(valueChanged(int)),this,SLOT(actPwrInput(int)));
+    connect(ui->dsb_loadMass,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(ui->dsb_cableDiam,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(ui->dsb_spoolDiam,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(ui->dsb_loadHeight,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(ui->dsb_safetyCoef,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(ui->dsb_spoolWidth,SIGNAL(valueChanged(double)),this,SLOT(actPwrInput(double)));
+    connect(&reduc,SIGNAL(actPowerResult()),this,SLOT(actPowerResult()));
 
-    actPwrResult(0);
+    actPwrInput(0);
 
     //connect input gears value
     connect(ui->sb_minZ,SIGNAL(valueChanged(int)),this,SLOT(actGearsParams(int)));
@@ -85,13 +86,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::actPwrResult(int useless)
+void MainWindow::actPowerResult()
 {
-    useless++;
-    reduc.calcPower(double(ui->sb_motorPwr->value()),double(ui->sb_motorSpeed->value()),ui->dsb_loadMass->value(),
-                    ui->dsb_safetyCoef->value(),ui->dsb_loadHeight->value(),ui->dsb_cableDiam->value()
-                    ,ui->dsb_spoolWidth->value(),ui->dsb_spoolDiam->value());
-
     ui->lbl_lSPwr->setText(QString::number(reduc.get_lSPwr(),'f',2));
     ui->lbl_lSInputFreq->setText(QString::number(reduc.get_lSInputFreq(),'f',2));
     ui->lbl_lSOutputFreq->setText(QString::number(reduc.get_lSOutputFreq(),'f',2));
@@ -115,12 +111,20 @@ void MainWindow::actPwrResult(int useless)
     ui->lbl_loadWeight->setText(QString::number(reduc.get_loadWeight(),'f',2));
     ui->lbl_maxSpoolRad->setText(QString::number(reduc.get_maxSpoolRad(),'f',2));
 
-    reduc.actVerifGearsInput(ui->sb_veGears_Z1->value(),ui->sb_veGears_Z2->value(),ui->sb_veGears_Z3->value(),ui->sb_veGears_Z4->value());
+    //reduc.actVerifGearsInput(ui->sb_veGears_Z1->value(),ui->sb_veGears_Z2->value(),ui->sb_veGears_Z3->value(),ui->sb_veGears_Z4->value());
 }
 
-void MainWindow::actPwrResult(double useless)
+void MainWindow::actPwrInput(int useless)
 {
-    actPwrResult(int(useless));
+    useless++;
+    reduc.actPowerInput(double(ui->sb_motorPwr->value()),double(ui->sb_motorSpeed->value()),ui->dsb_loadMass->value(),
+                    ui->dsb_safetyCoef->value(),ui->dsb_loadHeight->value(),ui->dsb_cableDiam->value()
+                    ,ui->dsb_spoolWidth->value(),ui->dsb_spoolDiam->value());
+}
+
+void MainWindow::actPwrInput(double useless)
+{
+    actPwrInput(int(useless));
 }
 
 
@@ -218,8 +222,8 @@ void MainWindow::gearsCalcEnded()
 void MainWindow::actBearingsInput(double useless)
 {
     useless++;
-    reduc.actBearingsInput(ui->dsb_bear_B2Z4->value(),ui->dsb_bear_B3B4->value(),ui->dsb_bear_B3Z3->value(),
-                           ui->dsb_bear_spoolB1->value(),ui->dsb_bear_B1B2->value(),ui->dsb_bear_B2Z4->value());
+    /*reduc.actBearingsInput(ui->dsb_bear_B2Z4->value(),ui->dsb_bear_B3B4->value(),ui->dsb_bear_B3Z3->value(),
+                           ui->dsb_bear_spoolB1->value(),ui->dsb_bear_B1B2->value(),ui->dsb_bear_B2Z4->value());*/
 }
 void MainWindow::actBearingsOutput()
 {

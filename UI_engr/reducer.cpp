@@ -10,6 +10,11 @@
 #include <QMessageBox>
 #include <QCoreApplication>
 
+//compiler la version avec modules mini corrigés
+// 0 = non
+// 1 = oui
+#define COMPIL_CORRECT 0
+
 Reducer::Reducer(QObject *parent) : QObject(parent)
 {
     //gears
@@ -187,7 +192,7 @@ double Reducer::calcMaxSpoolRad()
     return maxSpoolRad;
 }
 
-void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const double &IloadMass,const double &IsafetyCoef,
+void Reducer::actPowerInput(const double &ImotorPwr,const double &ImotorSpeed,const double &IloadMass,const double &IsafetyCoef,
                         const double &IloadHeight,const double &IcableDiam,const double &IspoolWidth,const double &IspoolDiam)
 {
     motorPwr = ImotorPwr;
@@ -199,6 +204,11 @@ void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const 
     spoolWidth = IspoolWidth;
     spoolDiam = IspoolDiam;
 
+    calcPower();
+}
+
+void Reducer::calcPower()
+{
     calcLoadMass = loadMass*safetyCoef;
     loadWeight = calcLoadMass*9.81;
 
@@ -215,7 +225,7 @@ void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const 
     mSReducRatio = mSOutputFreq/mSInputFreq;
 
     lSPwr = motorPwr*gearsEfficiency;
-    lSReducRatio = qSqrt(totalReduc);
+    lSReducRatio =(veGears_Z2 != 0.0)?veGears_Z1/veGears_Z2:qSqrt(totalReduc);
     lSInputFreq = mSOutputFreq;
     lSOutputFreq = lSReducRatio*lSInputFreq;
     lSRatedTorque = lSPwr/lSOutputFreq;
@@ -224,6 +234,7 @@ void Reducer::calcPower(const double &ImotorPwr,const double &ImotorSpeed,const 
     wReducRatio = wOutputFreq/wInputFreq;
 
     emit actVerifGearsExpectedValues(gearsAlignTolerance,totalReduc);
+    emit actPowerResult();
 }
 
         //////////////////////////////////
@@ -313,7 +324,12 @@ void Reducer::calcGears()
                                     && (Z1*Z3)/(Z2*Z4) <= totalReduc
                                     && bestR1+bestR2+bestR3+bestR4 >= r1+r2+r3+r4
                                     && r1+r2 >= r3+r4-(gearsAlignTolerance*int(considerAlignTolerance)) && r1+r2 <= r3+r4+(gearsAlignTolerance*int(considerAlignTolerance))
-                                    && m1 >= cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe)) && m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe))
+                                    && m1 >= cbrt((5.48*2*mSRatedTorque)/(Z1*k1*rpe)) &&
+                                        #if COMPIL_CORRECT == 0
+                                        m2 >= cbrt((5.48*2*wRatedTorque)/(Z3*k2*rpe))
+                                        #else
+                                        m2 >= cbrt((5.48*2*wRatedTorque)/(Z4*k2*rpe))
+                                        #endif
                                     && r1*2.0*cos(alpha)-(motorAxisDiam/2.0)-getWedgeHeight(motorAxisDiam) >= wedgeSizeSafety && r2*2.0*cos(alpha)-(lsDiam/2.0)-getWedgeHeight(lsDiam) >= wedgeSizeSafety
                                         && r3*2.0*cos(alpha)-(lsDiam/2.0)-getWedgeHeight(lsDiam) >= wedgeSizeSafety && r4*2.0*cos(alpha)-(wAxisDiam/2.0)-getWedgeHeight(wAxisDiam) >= wedgeSizeSafety
                                 )
@@ -337,13 +353,12 @@ void Reducer::calcGears()
 
                                     calculatedReducRatio = (Z1*Z3)/(Z2*Z4);
 
-                                    double tmpMod1_1 = cbrt((5.48*2*lSRatedTorque)/(Z1*k1*rpe));
-                                    double tmpMod1_2 = cbrt((5.48*2*lSRatedTorque)/(Z2*k1*rpe));
-                                    double tmpMod2_1 = cbrt((5.48*2*lSRatedTorque)/(Z3*k2*rpe));
-                                    double tmpMod2_2 = cbrt((5.48*2*lSRatedTorque)/(Z4*k2*rpe));
+                                    minModule1 = cbrt((5.48*2*mSRatedTorque)/(Z1*k1*rpe));
+                                    minModule2 = cbrt((5.48*2*wRatedTorque)/(Z4*k2*rpe));
 
-                                    minModule1 = (tmpMod1_1 > tmpMod1_2)?tmpMod1_1:tmpMod1_2;
-                                    minModule2 = (tmpMod2_1 > tmpMod2_2)?tmpMod2_1:tmpMod2_2;
+                                    //qDebug() << cbrt((5.4756*2*lSPwr)/(k1*rpe*double(bestZ1)*mSOutputFreq)) << "   |   " << cbrt((5.48*2*mSRatedTorque)/(Z1*k1*rpe));
+                                    //qDebug() << cbrt((5.4756*2*lSPwr*double(bestZ2))/(k2*rpe*double(bestZ3)*mSOutputFreq*double(bestZ1))) << "   |   " << cbrt((5.48*2*wRatedTorque)/(Z4*k2*rpe));
+
 
                                     emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,minModule1,minModule2,bestk1*bestm1*1000,bestk2*bestm2*1000,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
                                 }
@@ -413,6 +428,7 @@ void Reducer::actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,co
     double r4 = bestm2*IZ4/2.0;
 
     emit actVerifGearsGotValues(r3+r4-r1-r2,reducRatio,std::abs(r3+r4-r1-r2) <= gearsAlignTolerance,reducRatio <= totalReduc);
+    calcPower();
 }
 
         //////////////////////////////////
@@ -537,6 +553,9 @@ void Reducer::loadProjectOutput(QString saveName)
 
     emit actGearsResult(bestZ1,bestZ2,bestZ3,bestZ4,bestm1,bestm2,minModule1,minModule2,b12,b34,calculatedReducRatio,bestR1,bestR2,bestR3,bestR4);
     actVerifGearsInput(int(veGears_Z1),int(veGears_Z2),int(veGears_Z3),int(veGears_Z4));
+
+    calcPower();
+    emit actPowerResult();
 }
 
 QString getStrValueOf(const QString &input,const QString &param)

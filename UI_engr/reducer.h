@@ -74,6 +74,8 @@ public:
     double get_totalReduc();
 
 signals:
+    void actPowerResult();
+
     ////// GEARS
     void update_PB_gearsCalcRange(int min,int max);
     void update_PB_gearsCalcValue(int value);
@@ -93,8 +95,9 @@ signals:
 
 public slots:
     ////// POWER
-    void calcPower(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
+    void actPowerInput(const double &ImotorPwr, const double &ImotorSpeed, const double &IloadMass, const double &IsafetyCoef,
                    const double &IloadHeight, const double &IcableDiam, const double &IspoolWidth, const double &IspoolDiam);
+    void calcPower();
 
 
 
