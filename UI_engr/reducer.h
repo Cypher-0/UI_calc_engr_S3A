@@ -91,7 +91,7 @@ signals:
     void actVerifGearsGotValues(double alignTolerance,double reducRatio,bool alignToleranceOK,bool reducRatioOk);
 
     ////// BEARINGS
-    void actBearingsOutput();
+    void actBearingsOutput(const int &B_lifeTime, const int &B1_lifeTime, const int &B2_lifeTime, const int &B3_lifeTime);
 
 public slots:
     ////// POWER
@@ -111,9 +111,8 @@ public slots:
     void actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,const int &IZ4);
 
     ////// BEARINGS
-    void actBearingsInput(const double &IB4_Z2,const double &IB4_B3,const double &IB3_Z3,
-                          const double &Ispool_B1,const double &IB1_B2,const double &IB2_Z4,
-                          const double &IdynLoadB1,const double &IdynLoadB2,const double &IdynLoadB3,const double &IdynLoadB4);
+    void actBearingsInput(const double &IdynLoadB1, const double &IdynLoadB2, const double &IdynLoadB3,
+                          const double &IdynLoadB4);
 
     ////// GLOBAL
     void saveProjectOutput(QString saveName);
@@ -208,13 +207,9 @@ private :
 
     //input parameters
     //B for bearings
-        //ls
-    double B4_Z2=0.0,B4_B3=0.0,B3_Z3=0.0;
 
-        //winch shaft
-    double spool_B1=0.0,B1_B2=0.0,B2_Z4=0.0;
-
-    double dynLoadB1=0.0,dynLoadB2=0.0,dynLoadB3=0.0,dynLoadB4=0.0;
+    double dynLoadB=0.0,dynLoadB1=0.0,dynLoadB2=0.0,dynLoadB3=0.0;
+    void calcBearingsLifeTime();
 
 
     //flux <<"="<<QString::number()<<";\n";

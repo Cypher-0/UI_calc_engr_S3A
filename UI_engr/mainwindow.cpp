@@ -62,13 +62,11 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->sb_veGears_Z4,SIGNAL(valueChanged(int)),this,SLOT(updateVerifGearsInput(int)));
 
     //connect BEARINGS
-    connect(ui->dsb_bear_B1B2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(ui->dsb_bear_B2Z4,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(ui->dsb_bear_B3B4,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(ui->dsb_bear_B3Z3,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(ui->dsb_bear_B4Z2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(ui->dsb_bear_spoolB1,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
-    connect(&reduc,SIGNAL(actBearingsOutput()),this,SLOT(actBearingsOutput()));
+    connect(&reduc,SIGNAL(actBearingsOutput(const int &,const int &,const int &,const int &)),this,SLOT(actBearingsOutput(const int &,const int &,const int &,const int &)));
+    connect(ui->dsb_bear_dynLoadB,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_dynLoadB1,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_dynLoadB2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_dynLoadB3,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
 
     actGearsParams(0);
 
@@ -222,12 +220,16 @@ void MainWindow::gearsCalcEnded()
 void MainWindow::actBearingsInput(double useless)
 {
     useless++;
-    /*reduc.actBearingsInput(ui->dsb_bear_B2Z4->value(),ui->dsb_bear_B3B4->value(),ui->dsb_bear_B3Z3->value(),
-                           ui->dsb_bear_spoolB1->value(),ui->dsb_bear_B1B2->value(),ui->dsb_bear_B2Z4->value());*/
+    reduc.actBearingsInput(ui->dsb_bear_dynLoadB->value(),ui->dsb_bear_dynLoadB1->value(),
+                           ui->dsb_bear_dynLoadB2->value(),ui->dsb_bear_dynLoadB3->value());
 }
-void MainWindow::actBearingsOutput()
+void MainWindow::actBearingsOutput(const int &B_lifeTime, const int &B1_lifeTime, const int &B2_lifeTime, const int &B3_lifeTime)
 {
     qDebug() << "Actualisation des résultats sur les roulements";
+    ui->lbl_bear_lifeTimeB->setText("R : "+QString::number(B_lifeTime)+" ans");
+    ui->lbl_bear_lifeTimeB1->setText("R1 : "+QString::number(B1_lifeTime)+" ans");
+    ui->lbl_bear_lifeTimeB2->setText("R2 : "+QString::number(B2_lifeTime)+" ans");
+    ui->lbl_bear_lifeTimeB3->setText("R3 : "+QString::number(B3_lifeTime)+" ans");
 }
 
 
@@ -287,7 +289,9 @@ void MainWindow::saveAllProject(QString fileName)
 void MainWindow::loadAllProject(QString fileName)
 {
     loadProjectInput(fileName);
+    qDebug() << "Chargement partie 1 finie";
     reduc.loadProjectOutput(fileName);
+    actBearingsInput(0.0);
 }
 
 
@@ -328,6 +332,11 @@ void MainWindow::saveProjectInput(QString saveName)
     flux <<"veGears_Z2="<<QString::number(ui->sb_veGears_Z2->value())<<";\n";
     flux <<"veGears_Z3="<<QString::number(ui->sb_veGears_Z3->value())<<";\n";
     flux <<"veGears_Z4="<<QString::number(ui->sb_veGears_Z4->value())<<";\n";
+
+    flux <<"dynLoadB="<<QString::number(ui->dsb_bear_dynLoadB->value())<<";\n";
+    flux <<"dynLoadB1="<<QString::number(ui->dsb_bear_dynLoadB1->value())<<";\n";
+    flux <<"dynLoadB2="<<QString::number(ui->dsb_bear_dynLoadB2->value())<<";\n";
+    flux <<"dynLoadB3="<<QString::number(ui->dsb_bear_dynLoadB3->value())<<";\n";
 
     //flux <<"="<<->text()<<";\n";
 
@@ -376,4 +385,10 @@ void MainWindow::loadProjectInput(QString saveName)
     ui->sb_veGears_Z2->setValue(getStrValueOf(text,"veGears_Z2").toInt());
     ui->sb_veGears_Z3->setValue(getStrValueOf(text,"veGears_Z3").toInt());
     ui->sb_veGears_Z4->setValue(getStrValueOf(text,"veGears_Z4").toInt());
+
+    //bearings
+    ui->dsb_bear_dynLoadB->setValue(getStrValueOf(text,"dynLoadB").toDouble());
+    ui->dsb_bear_dynLoadB1->setValue(getStrValueOf(text,"dynLoadB1").toDouble());
+    ui->dsb_bear_dynLoadB2->setValue(getStrValueOf(text,"dynLoadB2").toDouble());
+    ui->dsb_bear_dynLoadB3->setValue(getStrValueOf(text,"dynLoadB3").toDouble());
 }
