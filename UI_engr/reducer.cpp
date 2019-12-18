@@ -435,35 +435,69 @@ void Reducer::actVerifGearsInput(const int &IZ1,const int &IZ2,const int &IZ3,co
         ///         BEARINGS
         //////////////////////////////////
 
-void Reducer::actBearingsInput(const double &IdynLoadB1,const double &IdynLoadB2,const double &IdynLoadB3,
-                               const double &IdynLoadB4)
+void Reducer::actBearingsInput(const double &IdynLoadB1, const double &IdynLoadB2, const double &IdynLoadB3,
+                               const double &IdynLoadB4, const double &j, const double &i, const double &h,
+                               const double &q, const double &f, const double &e)
 {
     dynLoadB = IdynLoadB1;
     dynLoadB1 = IdynLoadB2;
     dynLoadB2 = IdynLoadB3;
     dynLoadB3 = IdynLoadB4;
 
+    bear_j = j;
+    bear_i = i;
+    bear_h = h;
+
+    bear_q = q;
+    bear_f = f;
+    bear_e = e;
+
     calcBearingsLifeTime();
 }
 
 void Reducer::calcBearingsLifeTime()
 {
-    double tanAlpha = tan(alpha*M_PI/180.0);
-    double bL = pow((veGears_Z4*bestm2/2*dynLoadB)/(wRatedTorque*tanAlpha),3.0);
-    double bL1 = pow((veGears_Z4*bestm2/2*dynLoadB1)/(wRatedTorque*tanAlpha),3.0);
-    double bL2 = pow((veGears_Z2*bestm1/2*dynLoadB2)/(lSRatedTorque*tanAlpha),3.0);
-    double bL3 = pow((veGears_Z2*bestm1/2*dynLoadB3)/(lSRatedTorque*tanAlpha),3.0);
+    //constants
+    const double tanAlpha = tan(alpha*M_PI/180.0);
+    const double lifeTimeConstant = (2.0*M_PI*double(pow(10.0,6.0)))/(31536000);
+    const double za = lSRatedTorque/(bestR3*0.001);
+    const double zb = lSRatedTorque/(bestR2*0.001);
+    qDebug() << "Za et Zb :" << za << endl << zb;
+    //temp var
+    double L=0.0;
+    //output
+    double lifeTime_b=0.0,lifeTime_b1=0.0,lifeTime_b2=0.0,lifeTime_b3=0.0;
 
-    double constant = (2.0*M_PI*double(pow(10.0,6.0)))/(31536000);
+    //bearing 0
+    double yr = ((bear_j+bear_i)*loadWeight-(bear_h*za*tanAlpha))/bear_i;//loadWeight = m*g*ks
+    double zr = (bear_h*za)/bear_i;
+    L = pow(dynLoadB*1000/sqrt((yr*yr)+(zr*zr)),3);
+    lifeTime_b = lifeTimeConstant*L/wOutputFreq;
 
-    double lifeTime_b = constant*(bL/wOutputFreq);
-    double lifeTime_b1 = constant*(bL1/wOutputFreq);
-    double lifeTime_b2 = constant*(bL2/lSOutputFreq);
-    double lifeTime_b3 = constant*(bL3/lSOutputFreq);
+    //bearing 1
+    double yr1 = loadWeight-yr+za*tanAlpha;//loadWeight = m*g*ks
+    double zr1 = zr-za;
+    L = pow(dynLoadB1*1000/sqrt((yr1*yr1)+(zr1*zr1)),3);
+    lifeTime_b1 = lifeTimeConstant*L/wOutputFreq;
 
-    emit actBearingsOutput(int(lifeTime_b),int(lifeTime_b1),int(lifeTime_b2),int(lifeTime_b3));
+    //bearing 2
+    double yr2 = tanAlpha*((bear_e*zb)-(za*(bear_f+bear_e)));//loadWeight = m*g*ks
+    double zr2 = ((-za*(bear_f+bear_e))-(zb*bear_e))/(bear_q+bear_f+bear_e);
+    L = pow(dynLoadB2*1000/sqrt((yr2*yr2)+(zr2*zr2)),3);
+    lifeTime_b2 = lifeTimeConstant*L/lSOutputFreq;
 
-    qDebug() << "BL3 : " << wOutputFreq;
+    //bearing 3
+    double yr3 = yr2+tanAlpha*(zb+za);//loadWeight = m*g*ks
+    double zr3 = -za-zr2-zb;
+    L = pow(dynLoadB3*1000/sqrt((yr3*yr3)+(zr3*zr3)),3);
+    lifeTime_b3 = lifeTimeConstant*L/lSOutputFreq;
+
+    qDebug() << "Fréquences : "<<wOutputFreq << "   |   " << lSOutputFreq;
+    qDebug() << "durées de vie : " << lifeTime_b << " | "<< lifeTime_b1 << " | "<< lifeTime_b2 << " | "<< lifeTime_b3;
+
+
+
+    emit actBearingsOutput(lifeTime_b,lifeTime_b1,lifeTime_b2,lifeTime_b3);
 }
 
 

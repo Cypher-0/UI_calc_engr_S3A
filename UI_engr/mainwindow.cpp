@@ -62,11 +62,20 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(ui->sb_veGears_Z4,SIGNAL(valueChanged(int)),this,SLOT(updateVerifGearsInput(int)));
 
     //connect BEARINGS
-    connect(&reduc,SIGNAL(actBearingsOutput(const int &,const int &,const int &,const int &)),this,SLOT(actBearingsOutput(const int &,const int &,const int &,const int &)));
+    connect(&reduc,SIGNAL(actBearingsOutput(const double &,const double &,const double &,const double &)),this,SLOT(actBearingsOutput(const double &,const double &,const double &,const double &)));
     connect(ui->dsb_bear_dynLoadB,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
     connect(ui->dsb_bear_dynLoadB1,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
     connect(ui->dsb_bear_dynLoadB2,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
     connect(ui->dsb_bear_dynLoadB3,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+
+    connect(ui->dsb_bear_j,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_i,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_h,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+
+    connect(ui->dsb_bear_q,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_f,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+    connect(ui->dsb_bear_e,SIGNAL(valueChanged(double)),this,SLOT(actBearingsInput(double)));
+
 
     actGearsParams(0);
 
@@ -221,15 +230,18 @@ void MainWindow::actBearingsInput(double useless)
 {
     useless++;
     reduc.actBearingsInput(ui->dsb_bear_dynLoadB->value(),ui->dsb_bear_dynLoadB1->value(),
-                           ui->dsb_bear_dynLoadB2->value(),ui->dsb_bear_dynLoadB3->value());
+                           ui->dsb_bear_dynLoadB2->value(),ui->dsb_bear_dynLoadB3->value(),
+                           ui->dsb_bear_j->value(),ui->dsb_bear_i->value(),ui->dsb_bear_h->value(),
+                           ui->dsb_bear_q->value(),ui->dsb_bear_f->value(),ui->dsb_bear_e->value());
 }
-void MainWindow::actBearingsOutput(const int &B_lifeTime, const int &B1_lifeTime, const int &B2_lifeTime, const int &B3_lifeTime)
+void MainWindow::actBearingsOutput(const double &B_lifeTime, const double &B1_lifeTime, const double &B2_lifeTime, const double &B3_lifeTime)
 {
     qDebug() << "Actualisation des résultats sur les roulements";
-    ui->lbl_bear_lifeTimeB->setText("R : "+QString::number(B_lifeTime)+" ans");
-    ui->lbl_bear_lifeTimeB1->setText("R1 : "+QString::number(B1_lifeTime)+" ans");
-    ui->lbl_bear_lifeTimeB2->setText("R2 : "+QString::number(B2_lifeTime)+" ans");
-    ui->lbl_bear_lifeTimeB3->setText("R3 : "+QString::number(B3_lifeTime)+" ans");
+    int precision = 1;
+    ui->lbl_bear_lifeTimeB->setText("R : <b><font color =\"Red\">"+QString::number(B_lifeTime,'f',precision)+"</font></b> ans");
+    ui->lbl_bear_lifeTimeB1->setText("R1 : <b><font color =\"Red\">"+QString::number(B1_lifeTime,'f',precision)+"</font></b> ans");
+    ui->lbl_bear_lifeTimeB2->setText("R2 : <b><font color =\"Red\">"+QString::number(B2_lifeTime,'f',precision)+"</font></b> ans");
+    ui->lbl_bear_lifeTimeB3->setText("R3 : <b><font color =\"Red\">"+QString::number(B3_lifeTime,'f',precision)+"</font></b> ans");
 }
 
 
@@ -333,10 +345,19 @@ void MainWindow::saveProjectInput(QString saveName)
     flux <<"veGears_Z3="<<QString::number(ui->sb_veGears_Z3->value())<<";\n";
     flux <<"veGears_Z4="<<QString::number(ui->sb_veGears_Z4->value())<<";\n";
 
+
     flux <<"dynLoadB="<<QString::number(ui->dsb_bear_dynLoadB->value())<<";\n";
     flux <<"dynLoadB1="<<QString::number(ui->dsb_bear_dynLoadB1->value())<<";\n";
     flux <<"dynLoadB2="<<QString::number(ui->dsb_bear_dynLoadB2->value())<<";\n";
     flux <<"dynLoadB3="<<QString::number(ui->dsb_bear_dynLoadB3->value())<<";\n";
+
+    flux <<"bear_j="<<QString::number(ui->dsb_bear_j->value())<<";\n";
+    flux <<"bear_i="<<QString::number(ui->dsb_bear_i->value())<<";\n";
+    flux <<"bear_h="<<QString::number(ui->dsb_bear_h->value())<<";\n";
+
+    flux <<"bear_q="<<QString::number(ui->dsb_bear_q->value())<<";\n";
+    flux <<"bear_f="<<QString::number(ui->dsb_bear_f->value())<<";\n";
+    flux <<"bear_e="<<QString::number(ui->dsb_bear_e->value())<<";\n";
 
     //flux <<"="<<->text()<<";\n";
 
@@ -391,4 +412,12 @@ void MainWindow::loadProjectInput(QString saveName)
     ui->dsb_bear_dynLoadB1->setValue(getStrValueOf(text,"dynLoadB1").toDouble());
     ui->dsb_bear_dynLoadB2->setValue(getStrValueOf(text,"dynLoadB2").toDouble());
     ui->dsb_bear_dynLoadB3->setValue(getStrValueOf(text,"dynLoadB3").toDouble());
+
+    ui->dsb_bear_j->setValue(getStrValueOf(text,"bear_j").toDouble());
+    ui->dsb_bear_i->setValue(getStrValueOf(text,"bear_i").toDouble());
+    ui->dsb_bear_h->setValue(getStrValueOf(text,"bear_h").toDouble());
+
+    ui->dsb_bear_q->setValue(getStrValueOf(text,"bear_q").toDouble());
+    ui->dsb_bear_f->setValue(getStrValueOf(text,"bear_f").toDouble());
+    ui->dsb_bear_e->setValue(getStrValueOf(text,"bear_e").toDouble());
 }

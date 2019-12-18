@@ -91,7 +91,7 @@ signals:
     void actVerifGearsGotValues(double alignTolerance,double reducRatio,bool alignToleranceOK,bool reducRatioOk);
 
     ////// BEARINGS
-    void actBearingsOutput(const int &B_lifeTime, const int &B1_lifeTime, const int &B2_lifeTime, const int &B3_lifeTime);
+    void actBearingsOutput(const double &B_lifeTime, const double &B1_lifeTime, const double &B2_lifeTime, const double &B3_lifeTime);
 
 public slots:
     ////// POWER
@@ -112,7 +112,8 @@ public slots:
 
     ////// BEARINGS
     void actBearingsInput(const double &IdynLoadB1, const double &IdynLoadB2, const double &IdynLoadB3,
-                          const double &IdynLoadB4);
+                          const double &IdynLoadB4, const double &j,const double &i,const double &h,
+                          const double &q,const double &f,const double &e);
 
     ////// GLOBAL
     void saveProjectOutput(QString saveName);
@@ -207,8 +208,11 @@ private :
 
     //input parameters
     //B for bearings
-
+        //dynamic base load
     double dynLoadB=0.0,dynLoadB1=0.0,dynLoadB2=0.0,dynLoadB3=0.0;
+        //distances
+    double bear_j=0.0,bear_i=0.0,bear_h=0.0;
+    double bear_q=0.0,bear_f=0.0,bear_e=0.0;
     void calcBearingsLifeTime();
 
 

@@ -36,7 +36,7 @@ public slots :
 
     //Bearings
     void actBearingsInput(double useless);
-    void actBearingsOutput(const int &B_lifeTime,const int &B1_lifeTime,const int &B2_lifeTime,const int &B3_lifeTime);
+    void actBearingsOutput(const double &B_lifeTime,const double &B1_lifeTime,const double &B2_lifeTime,const double &B3_lifeTime);
 
 
     //make saves
