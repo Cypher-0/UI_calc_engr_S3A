@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Images">
+        <file>Gears.png</file>
+        <file>EDM_logiciel_ill.png</file>
+    </qresource>
+</RCC>
