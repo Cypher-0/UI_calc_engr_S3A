@@ -444,13 +444,13 @@ void Reducer::actBearingsInput(const double &IdynLoadB1, const double &IdynLoadB
     dynLoadB2 = IdynLoadB3;
     dynLoadB3 = IdynLoadB4;
 
-    bear_j = j;
-    bear_i = i;
-    bear_h = h;
+    bear_j = j*0.001;
+    bear_i = i*0.001;
+    bear_h = h*0.001;
 
-    bear_q = q;
-    bear_f = f;
-    bear_e = e;
+    bear_q = q*0.001;
+    bear_f = f*0.001;
+    bear_e = e*0.001;
 
     calcBearingsLifeTime();
 }
@@ -462,7 +462,6 @@ void Reducer::calcBearingsLifeTime()
     const double lifeTimeConstant = (2.0*M_PI*double(pow(10.0,6.0)))/(31536000);
     const double za = lSRatedTorque/(bestR3*0.001);
     const double zb = lSRatedTorque/(bestR2*0.001);
-    qDebug() << "Za et Zb :" << za << endl << zb;
     //temp var
     double L=0.0;
     //output
@@ -489,6 +488,7 @@ void Reducer::calcBearingsLifeTime()
     //bearing 3
     double yr3 = yr2+tanAlpha*(zb+za);//loadWeight = m*g*ks
     double zr3 = -za-zr2-zb;
+    qDebug() << "yr3 et zr3 :" << yr3 << endl << zr3;
     L = pow(dynLoadB3*1000/sqrt((yr3*yr3)+(zr3*zr3)),3);
     lifeTime_b3 = lifeTimeConstant*L/lSOutputFreq;
 
